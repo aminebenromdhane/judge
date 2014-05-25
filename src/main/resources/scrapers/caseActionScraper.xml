@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<field>
+	<key>actionDate</key>
+	<pathInit>body>form>center>table>tbody>tr:gt(0)>td:eq(0)</pathInit>
+	<path>body>form>center>table>tbody>tr:eq({{x}})>td:eq(0)</path>
+</field>
+<field>
+	<key>actionProceedings</key>
+	<pathInit>body>form>center>table>tbody>tr:gt(0)>td:eq(1)</pathInit>
+	<path>body>form>center>table>tbody>tr:eq({{x}})>td:eq(1)</path>
+</field>
+<field typeValue="href">
+	<key>actionDocument</key>
+	<pathInit>body>form>center>table>tbody>tr:gt(0)>td:eq(2)>center>font>a</pathInit>
+	<path>body>form>center>table>tbody>tr:eq({{x}})>td:eq(2)>center>font>a</path>
+</field>
+</data>

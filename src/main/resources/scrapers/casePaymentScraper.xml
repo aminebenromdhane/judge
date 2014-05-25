@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<field>
+	<key>date</key>
+	<pathInit>center>table>tbody>tr:gt(0)>td:eq(0)</pathInit>
+	<path>center>table>tbody>tr:eq({{x}})>td:eq(0)</path>
+</field>
+<field>
+	<key>amount</key>
+	<pathInit>center>table>tbody>tr:gt(0)>td:eq(1)</pathInit>
+	<path>center>table>tbody>tr:eq({{x}})>td:eq(1)</path>
+</field>
+<field>
+	<key>type</key>
+	<pathInit>center>table>tbody>tr:gt(0)>td:eq(2)</pathInit>
+	<path>center>table>tbody>tr:eq({{x}})>td:eq(2)</path>
+</field>
+<field>
+	<key>receiptNumber</key>
+	<pathInit>center>table>tbody>tr:gt(0)>td:eq(3)</pathInit>
+	<path>center>table>tbody>tr:eq({{x}})>td:eq(3)</path>
+</field>
+<field>
+	<key>reason</key>
+	<pathInit>center>table>tbody>tr:gt(0)>td:eq(4)</pathInit>
+	<path>center>table>tbody>tr:eq({{x}})>td:eq(4)</path>
+</field>
+</data>

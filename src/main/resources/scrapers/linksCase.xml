@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<field>
+	<key>name</key>
+	<path>center>table>tbody>tr>td>font>a</path>
+</field>
+<field typeValue="href">
+	<key>link</key>
+	<path>center>table>tbody>tr>td>font>a</path>
+</field>
+</data>

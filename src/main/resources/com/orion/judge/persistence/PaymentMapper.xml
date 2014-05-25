@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.judge.persistence.PaymentMapper">
+	<resultMap type="com.orion.judge.domain.Payment" id="Payment">
+        <id column="id" property="id"  />
+        <result property="civilCaseID" column="civilCaseID"/>
+        <result property="date" column="date"/>
+        <result property="amount" column="amount"/>
+        <result property="type" column="type"/>
+        <result property="receiptNumber" column="receiptNumber"/>
+        <result property="reason" column="reason"/>
+    </resultMap>
+	     
+    <insert id="insertPayment" parameterType="Payment" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('payments_id_seq')
+	  </selectKey>
+	  insert into payments (date,type,amount,reason,receipt_number,civilcase_id)
+	  values (#{date},#{type},#{amount},#{reason},#{receiptNumber},#{civilCaseID})
+	</insert>
+</mapper>

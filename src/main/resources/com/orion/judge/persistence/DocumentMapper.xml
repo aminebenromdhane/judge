@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.judge.persistence.DocumentMapper">
+	<resultMap type="com.orion.judge.domain.Document" id="Document">
+        <id column="id" property="id"  />
+        <result property="url" column="url"/>
+        <result property="content" column="content"/>
+        <result property="actionCaseID" column="actionCaseID"/>
+    </resultMap>
+	     
+    <insert id="insertDocument" parameterType="Document" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('documents_id_seq')
+	  </selectKey>
+	  insert into documents (url,content,actioncase_id)
+	  values (#{url},#{content},#{actionCaseID})
+	</insert>
+	
+	<select id="getDocument" resultMap="Document">
+		select * from documents where actioncase_id=#{actionCaseID} 
+	</select>
+</mapper>

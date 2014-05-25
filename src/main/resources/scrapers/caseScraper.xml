@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<field>
+	<key>case</key>
+	<path>body>form>center>font:contains(Case Number:)</path>
+</field>
+<field>
+	<key>title</key>
+	<path>body>form>center>font:contains(Title:)</path>
+</field>
+<field>
+	<key>cause</key>
+	<path>body>form>center>font:contains(Cause of Action:)</path>
+</field>
+<field typeValue="href">
+	<key>linkParties</key>
+	<path>body>form>center>font>a:contains(Parties)</path>
+</field>
+<field typeValue="href">
+	<key>linkAttorneys</key>
+	<path>body>form>center>font>a:contains(Attorneys)</path>
+</field>
+<field typeValue="href">
+	<key>linkCalendar</key>
+	<path>body>form>center>font>a:contains(Calendar)</path>
+</field>
+<field typeValue="href">
+	<key>linkPayments</key>
+	<path>body>form>center>font>a:contains(Payments)</path>
+</field>
+<field typeValue="value">
+	<key>date</key>
+	<path>body>form>center>input:eq(3)</path>
+</field>
+</data>

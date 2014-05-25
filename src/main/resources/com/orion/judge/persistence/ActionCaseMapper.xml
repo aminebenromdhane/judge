@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.judge.persistence.ActionCaseMapper">
+	<resultMap type="com.orion.judge.domain.ActionCase" id="ActionCase">
+        <id column="id" property="id"  />
+        <result property="civilCaseID" column="civilCaseID"/>
+        <result property="proceedings" column="proceedings"/>
+        <result property="document" column="document"/>
+        <result property="date" column="date"/>
+    </resultMap>
+	
+	<select id="getActionCasesByDate" parameterType="map" resultMap="ActionCase">
+		select * from actioncases where document != '' AND date &gt;= #{firstDay} AND date &lt;= #{finalDay}
+	</select>
+	
+	<select id="getDownloadedActionCasesByCaseID" parameterType="map" resultMap="ActionCase">
+		select * from actioncases where document != '' AND document_status = 1 AND civilcase_id = #{caseID}
+	</select>
+	
+	<select id="getActionCasesByCaseID" parameterType="map" resultMap="ActionCase">
+		select * from actioncases where document != '' AND document_status != 1 AND civilcase_id = #{caseID}
+	</select>  
+	
+	<update id="setDocumentDownloaded" parameterType="map">
+		UPDATE actioncases SET document_status=1 where id = #{id}
+	</update>
+	
+	<update id="setDocumentNotDownloaded" parameterType="map">
+		UPDATE actioncases SET document_status=-1 where id = #{id}
+	</update>
+	   
+    <insert id="insertActionCase" parameterType="ActionCase" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('actioncases_id_seq')
+	  </selectKey>
+	  insert into actioncases (proceedings,document,date,civilcase_id)
+	  values (#{proceedings},#{document},#{date},#{civilCaseID})
+	</insert>
+</mapper>

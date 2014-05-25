@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.judge.persistence.CivilCaseMapper">
+	<resultMap type="com.orion.judge.domain.CivilCase" id="CivilCase">
+        <id column="id" property="id"  />
+        <result property="number" column="number"/>
+        <result property="title" column="title"/>
+        <result property="cause" column="cause"/>
+        <result property="date" column="date"/>
+    </resultMap>
+	     
+    <select id="getCivilCase" resultMap="CivilCase">
+		select * from civilcases where number=#{number} 
+	</select>
+    
+    <select id="getAllCivilCases" resultMap="CivilCase">
+		select * from civilcases 
+	</select>
+    
+    <select id="getLatestCivilCase" resultMap="CivilCase">
+    	SELECT * FROM civilcases WHERE "number" LIKE #{year} ORDER BY "number" DESC LIMIT 1;
+    </select>
+    
+    <insert id="insertCivilCase" parameterType="CivilCase" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('civilcases_id_seq')
+	  </selectKey>
+	  insert into civilcases (number,title,cause,date)
+	  values (#{number},#{title},#{cause},#{date})
+	</insert>
+</mapper>

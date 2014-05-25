@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.judge.persistence.JudgeMapper">
+	<resultMap type="com.orion.judge.domain.Judge" id="Judge">
+        <id column="id" property="id"  />
+        <result property="name" column="name"/>
+    </resultMap>
+	     
+    <select id="getJudge" resultMap="Judge">
+		select * from judges where name=#{name} 
+	</select>
+    
+    <insert id="insertJudge" parameterType="Judge" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('judges_id_seq')
+	  </selectKey>
+	  insert into judges (name)
+	  values (#{name})
+	</insert>
+</mapper>

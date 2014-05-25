@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.judge.persistence.AttorneyMapper">
+	<resultMap type="com.orion.judge.domain.Attorney" id="Attorney">
+        <id column="id" property="id"  />
+        <result property="civilCaseID" column="civilCaseID"/>
+        <result property="name" column="name"/>
+        <result property="barNumber" column="barNumber"/>
+        <result property="address" column="address"/>
+        <result property="partiesRepresented" column="partiesRepresented"/>
+    </resultMap>
+	     
+    <insert id="insertAttorney" parameterType="Attorney" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('attorneys_id_seq')
+	  </selectKey>
+	  insert into attorneys (name,bar_number,address,parties_represented,civilcase_id)
+	  values (#{name},#{barNumber},#{address},#{partiesRepresented},#{civilCaseID})
+	</insert>
+</mapper>

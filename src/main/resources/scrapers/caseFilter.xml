@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<field>
+	<key>case</key>
+	<path>center>table>tbody>tr:gt(0)>td:eq(0)>font>a</path>
+</field>
+<field>
+	<key>title</key>
+	<path>center>table>tbody>tr:gt(0)>td:eq(3)</path>
+</field>
+<field>
+	<key>date</key>
+	<path>center>table>tbody>tr:gt(0)>td:eq(4)</path>
+</field>
+</data>
