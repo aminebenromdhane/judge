@@ -8,6 +8,6 @@ import org.jsoup.Connection.Method;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.HttpConnection;
 
-public class ScraperUrlV2 extends HttpConnection {
+public class ScraperUrlV2 {
 	
 }

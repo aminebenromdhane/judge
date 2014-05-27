@@ -1,7 +1,7 @@
 package com.orion.zd.scraper.component;
 
 public class ScraperAttribute {
-
+	
 	private String name;
 	private String path;
 	private String typeValue;
@@ -9,6 +9,7 @@ public class ScraperAttribute {
 	public ScraperAttribute(String name,String path){
 		this.name = name;
 		this.path = path;
+		this.typeValue = "text";
 	}
 	
 	public void addParam(String paramName,String paramValue){

@@ -3,34 +3,29 @@ package com.orion.zd.scraper.component;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jsoup.select.Elements;
 
-import com.orion.zd.scraper.component.ScraperField;
 
-public class SimpleScraperV2 implements Scraper{
+public class SimpleScraperV2 implements ScraperV2{
 
 	private String configFileName;
 	private org.jdom2.Document configFile;
 	private ArrayList<ScraperObject> dataPointer;
-	private ArrayList<Hashtable<String,String>> scrappedData;
+	private List<ArrayList<Object>> scrappedData;
 	private ScraperUrl urlToScrap;
-	private Scraper thisScraper;
+	private ScraperV2 thisScraper;
 	private boolean isConfigurated;
 	private int countData;
 	
 	public SimpleScraperV2(String configFileName){
 		dataPointer = new ArrayList<ScraperObject>();
-		scrappedData = new ArrayList<Hashtable<String,String>>();
+		scrappedData = new ArrayList<ArrayList<Object>>();
 		this.configFileName = configFileName;
 		this.urlToScrap = null;
 		thisScraper = this;
@@ -74,36 +69,71 @@ public class SimpleScraperV2 implements Scraper{
 	
 	@Override
 	public Document readData(Document doc) {
-		int beginIndex = 0;
-		if(!scrappedData.isEmpty()){
-			beginIndex = scrappedData.size();
-		}
-		for (ScraperField field : dataPointer) {
-			int size = doc.select(field.getPath()).size();
-			//logger.info(Calendar.getInstance().getTime()+" selecting "+size+" elements");
-			for(int i=0;i<size;i++){
-				Hashtable<String,String> hashTable;
-				if(scrappedData.size() <= i+beginIndex){
-					hashTable = new Hashtable<String,String>();
-					scrappedData.add(hashTable);
-				}else{
-					hashTable = scrappedData.get(i+beginIndex);
-				}
-				org.jsoup.nodes.Element elementToScrap = doc.select(field.getPath()).get(i);
-				if(elementToScrap == null){
-					System.out.println("This path is not Correct : "+field.getPath());
-					break;
-				}
-				if(field.getTypeOfValue().equals("text")){
-					hashTable.put(field.getKey(), elementToScrap.text());
-				}else{
-					hashTable.put(field.getKey(), elementToScrap.attr(field.getTypeOfValue()));
-				}
+		for (ScraperObject object : this.dataPointer) {
+			Elements miniDocs = doc.parents();
+			if(object.getInclude() == null){
+				miniDocs = doc.select(object.getInclude());
 			}
+			ArrayList<Object> objects = new ArrayList<Object>(); 
+			for(org.jsoup.nodes.Element miniDoc : miniDocs){
+				Object newObject = null;
+				try {
+					newObject = object.getClass().newInstance();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				for(ScraperAttribute attribute : object.getAttributes()){
+					newObject = setAttribute(object,newObject,attribute,miniDoc);
+				}
+				objects.add(newObject);
+			}
+			scrappedData.add(objects);
 		}
 		return doc;
 	}
-	
+	private Object setAttribute(ScraperObject object ,Object instance , ScraperAttribute attribute,org.jsoup.nodes.Element miniDoc){
+		try {
+			if(object.getClass().getField(attribute.getName()).getType() == List.class){
+				object.getClass().
+				getMethod(this.getSetterMethod(attribute.getName()), List.class).
+				invoke(instance, this.getListValue(miniDoc, attribute));
+			}else{
+				if(object.getClass().getField(attribute.getName()).getType() == int.class){
+					object.getClass().
+					getMethod(this.getSetterMethod(attribute.getName()), int.class).
+					invoke(instance, Integer.parseInt(getElementValue(miniDoc,attribute)));
+				}else{
+					object.getClass().
+					getMethod(this.getSetterMethod(attribute.getName()), String.class).
+					invoke(instance, getElementValue(miniDoc,attribute));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return instance;
+	}
+	private List<String> getListValue(org.jsoup.nodes.Element miniDoc,ScraperAttribute attribute){
+		Elements elementsToScrap = miniDoc.select(attribute.getPath());
+		List<String> elementsValue = new ArrayList<String>();
+		for(org.jsoup.nodes.Element element : elementsToScrap){
+			elementsValue.add(getValue(element,attribute));
+		}
+		return elementsValue;
+	}
+	private String getElementValue(org.jsoup.nodes.Element miniDoc,ScraperAttribute attribute){
+		Elements element = miniDoc.select(attribute.getPath());
+		return getValue(element.get(0),attribute);
+	}
+	private String getValue(org.jsoup.nodes.Element element,ScraperAttribute attribute){
+		if(attribute.getTypeValue().equals("text")){
+			return element.text();
+		}
+		return element.attr(attribute.getTypeValue());
+	}
+	private String getSetterMethod(String attribute){
+		return "set"+Character.toUpperCase(attribute.charAt(0))+attribute.substring(1);
+	}
 	@Override
 	public void config(){
 		if(readConfigFile()){
@@ -113,26 +143,28 @@ public class SimpleScraperV2 implements Scraper{
 	}
 	
 	private void setDataPointer() {
-		List<Element> fields = this.configFile.getRootElement().getChildren("field");
-		for (int i = 0; i < fields.size(); i++) {
-			Element node = fields.get(i);
-			ScraperObject newObj = null;
+		List<Element> objects = this.configFile.getRootElement().getChildren("object");
+		for(int i=0;i<objects.size(); i++){
+			List<Element> attributes = objects.get(i).getChildren("attribute");	
+			ScraperObject obj = null;
 			try {
-				newObj = new ScraperObject(Class.forName(node.getAttributeValue("object")));
+				obj = new ScraperObject(Class.forName(objects.get(i).getAttributeValue("name")),
+											objects.get(i).getChildText("include"));
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 				return;
 			}
-			if(this.dataPointer.contains(newObj)){
-				newObj = this.dataPointer.get(this.dataPointer.indexOf(newObj));
-			}else{
-				this.dataPointer.add(newObj);
+			for (int j = 0; j < attributes.size(); j++) {
+				Element node = attributes.get(i);
+				ScraperAttribute newAttribute = new ScraperAttribute(node.getChildText("key"),
+																	node.getChildText("path"));
+				newAttribute.addParam("typeValue",node.getAttributeValue("typeValue"));
+				obj.addAttribute(newAttribute);
 			}
-			ScraperAttribute newAttribute = new ScraperAttribute(node.getChildText("key"),
-																node.getChildText("path"));
-			newAttribute.addParam("typeValue",node.getAttributeValue("typeValue"));
-			newObj.addAttribute(newAttribute);
+			this.dataPointer.add(obj);
 		}
+		
+		
 	}
 	
 	private boolean readConfigFile(){
@@ -153,7 +185,7 @@ public class SimpleScraperV2 implements Scraper{
 	}
 	
 	@Override
-	public ArrayList<Hashtable<String,String>> getScrappedData(){
+	public List<ArrayList<Object>> getScrappedData(){
 		return scrappedData;
 	}
 	
@@ -177,12 +209,12 @@ public class SimpleScraperV2 implements Scraper{
 		this.configFileName = configFileName;
 		this.isConfigurated = false;
 	}
-	public Scraper getThisScraper() {
+	public ScraperV2 getThisScraper() {
 		return thisScraper;
 	}
 	
 	@Override
-	public void setThisScraper(Scraper thisScraper) {
+	public void setThisScraper(ScraperV2 thisScraper) {
 		this.thisScraper = thisScraper;
 	}
 	
