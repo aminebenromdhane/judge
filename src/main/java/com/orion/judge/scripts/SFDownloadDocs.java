@@ -49,7 +49,10 @@ public class SFDownloadDocs extends Thread{
 			String fileName = action.getId()+".pdf";
 			File thisPDF = new File(HOME_PDF+folderName+"/"+fileName);
 			if(!thisPDF.exists()){
+				System.out.println("**********************************");
+				System.out.println(caseID);
 				this.downloadPDF(action.getDocument(),fileName,folderName,action.getId());
+				System.out.println("**********************************");
 			}else{
 				exists++;
 				this.actionCaseService.updateStatus(action.getId(), true);
@@ -57,6 +60,7 @@ public class SFDownloadDocs extends Thread{
 		}
 	}
 	private void downloadPDF(String url,String fileName,String folderName,int docID){
+		System.out.println(url);
 		int alltries = 0;
 		int tries = 0,maxTries = 3;
 		do{
@@ -105,7 +109,7 @@ public class SFDownloadDocs extends Thread{
 				tries++;
 			}
 			File thisPDF = new File(HOME_PDF+folderName+"/"+fileName);
-			System.out.println(thisPDF.length());
+			
 			if(thisPDF.length() != 0){
 				tries = maxTries;
 				goods++;
@@ -117,14 +121,12 @@ public class SFDownloadDocs extends Thread{
 				tries++;
 				if(tries >= maxTries){
 					this.actionCaseService.updateStatus(docID, false);
+					fails++;
 				}
 			}
 		}while(tries < maxTries);
 		if(tries != 0){
 			waitings-=alltries;
-		}
-		if(tries >= maxTries){
-			fails++;
 		}
 	}
 

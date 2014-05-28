@@ -7,37 +7,37 @@ function PDFController($scope,$http) {
 	$scope.threadNumber = 1;
 	$scope.loading = false;
 	
-	refreshCount = function(){
+	$scope.refreshCount = function(){
 		$http.get('/judge/verificator/countpdf').success(function(res){
 	  		$scope.countpdf = res;
 		});		
 	};
 
-	refreshWaiting = function(){
+	$scope.refreshWaiting = function(){
 		$http.get('/judge/verificator/countwaiting').success(function(res){
 	  		$scope.waitingpdf = res;
 		});		
 	};
 	
-	refreshFail = function(){
+	$scope.refreshFail = function(){
 		$http.get('/judge/verificator/countfail').success(function(res){
 	  		$scope.failpdf = res;
 		});		
 	};
 
-	refreshExist = function(){
+	$scope.refreshExist = function(){
 		$http.get('/judge/verificator/countexist').success(function(res){
 	  		$scope.existpdf = res;
 		});		
 	};
-	refresh = function(){
+	$scope.refresh = function(){
 		if($scope.waitingpdf != 0 && !$scope.loading){
 			$scope.loading = true;
 		}
-		refreshCount();
-		refreshFail();
-		refreshExist();
-		refreshWaiting();
+		$scope.refreshCount();
+		$scope.refreshFail();
+		$scope.refreshExist();
+		$scope.refreshWaiting();
 	};
 	$scope.restart = function(){
 		$scope.loading = true;
@@ -46,5 +46,5 @@ function PDFController($scope,$http) {
 			console.log("finish");
 		});
 	};
-	setInterval(refresh,1000);
+	setInterval($scope.refresh,1000);
 }

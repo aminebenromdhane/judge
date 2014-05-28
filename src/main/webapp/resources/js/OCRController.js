@@ -6,31 +6,30 @@ function OCRController($scope,$http) {
 	$scope.threadNumber = 1;
 	$scope.loading = false;
 	
-	refreshCount = function(){
+	$scope.refreshCount = function(){
 		$http.get('/judge/verificator/goodocr').success(function(res){
 	  		$scope.goodocr = res;
 		});		
 	};
 	
-	refreshFail = function(){
+	$scope.refreshFail = function(){
 		$http.get('/judge/verificator/failocr').success(function(res){
 	  		$scope.failocr = res;
 		});		
 	};
 
-	refreshExist = function(){
+	$scope.refreshExist = function(){
 		$http.get('/judge/verificator/existocr').success(function(res){
 	  		$scope.existocr = res;
 		});		
 	};
-	refresh = function(){
+	$scope.refresh = function(){
 		if($scope.goodocr != 0 && !$scope.loading){
 			$scope.loading = true;
 		}
-		refreshCount();
-		refreshFail();
-		refreshExist();
-		refreshWaiting();
+		$scope.refreshCount();
+		$scope.refreshFail();
+		$scope.refreshExist();
 	};
 	$scope.restart = function(){
 		$scope.loading = true;
@@ -39,5 +38,5 @@ function OCRController($scope,$http) {
 			console.log("finish");
 		});
 	};
-	setInterval(refresh,1000);
+	setInterval($scope.refresh,1000);
 }
