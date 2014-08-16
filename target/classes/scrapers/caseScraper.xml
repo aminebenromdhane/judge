@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<object name="com.orion.judgesc.domain.Case" filter="com.orion.judgesc.data.filter.CaseFilter">
+	<include>div.main>div#subwrapper>div#submain>div>fieldset</include>
+	<attribute>
+		<key>title</key>
+		<path>div#caseDetailsInformationSection>div:not([style]):eq(1)</path>
+	</attribute>
+	<attribute>
+		<key>number</key>
+		<path>div#caseDetailsInformationSection>div:eq(3)</path>
+	</attribute>
+	<attribute>
+		<key>filedDate</key>
+		<path>div#caseDetailsInformationSection>div:eq(6)</path>
+	</attribute>
+	<attribute>
+		<key>type</key>
+		<path>div#caseDetailsInformationSection>div:eq(4)>div.display-field</path>
+	</attribute>
+	<attribute>
+		<key>category</key>
+		<path>div#caseDetailsInformationSection>div:eq(7)>div.display-field</path>
+	</attribute>
+	<attribute typeValue="value">
+		<key>sourceKey</key>
+		<path>input#CourtCase_SourceKey</path>
+	</attribute>
+</object>
+<object name="com.orion.judgesc.domain.Participant" filter="com.orion.judgesc.data.filter.ParticipantFilter">
+	<include>div.main>div#subwrapper>div#submain>div:eq(2)>div.collapsibleContent>table>tbody>tr:gt(0)</include>
+	<attribute>
+		<key>name</key>
+		<path>td:eq(0)</path>
+	</attribute>
+	<attribute>
+		<key>role</key>
+		<path>td:eq(1)</path>
+	</attribute>
+	<attribute>
+		<key>representer</key>
+		<path>td:eq(2)</path>
+	</attribute>
+</object>
+<object name="com.orion.judgesc.domain.Event" filter="com.orion.judgesc.data.filter.EventFilter">
+	<include>div.main>div#subwrapper>div#submain>div:eq(3)>div.collapsibleContent>table>tbody>tr:gt(0)</include>
+	<attribute>
+		<key>date</key>
+		<path>td:eq(0)</path>
+	</attribute>
+	<attribute>
+		<key>time</key>
+		<path>td:eq(1)</path>
+	</attribute>
+	<attribute>
+		<key>type</key>
+		<path>td:eq(2)</path>
+	</attribute>
+	<attribute>
+		<key>department</key>
+		<path>td:eq(3)</path>
+	</attribute>
+	<attribute>
+		<key>status</key>
+		<path>td:eq(4)</path>
+	</attribute>
+</object>
+<object name="com.orion.judgesc.domain.Action" filter="com.orion.judgesc.data.filter.ActionFilter">
+	<include>div.main>div#subwrapper>div#submain>div:eq(4)>div.collapsibleContent>table>tbody>tr:gt(0)</include>
+	<attribute>
+		<key>entry</key>
+		<path>td:eq(1)</path>
+	</attribute>
+	<attribute>
+		<key>filedDate</key>
+		<path>td:eq(2)</path>
+	</attribute>
+	<attribute>
+		<key>filedBy</key>
+		<path>td:eq(3)</path>
+	</attribute>
+	<attribute typeValue="value">
+		<key>document</key>
+		<path>td:eq(5)>form>input#SourceKey</path>
+	</attribute>
+	<attribute typeValue="value">
+		<key>key</key>
+		<path>td:eq(5)>form>input[name=__RequestVerificationToken]</path>
+	</attribute>
+</object>
+</data>

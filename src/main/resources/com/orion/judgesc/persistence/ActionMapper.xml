@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.judgesc.persistence.ActionMapper">
+	<resultMap type="com.orion.judgesc.domain.Action" id="Action">
+        <id column="id" property="id"  />
+        <result property="entry" column="entry"/>
+        <result property="filedDate" column="filed_date"/>
+        <result property="filedBy" column="filed_by"/>
+        <result property="document" column="document"/>
+        <result property="caseId" column="case_id"/>
+    </resultMap>
+    
+    <select id="getActionID" parameterType="map" resultMap="Action">
+    	select * from actions where entry=#{entry} AND filed_date=#{filedDate} AND filed_by=#{filedBy} AND case_id=#{caseID}
+    </select>
+    
+    <select id="getActionByCaseID" parameterType="map" resultMap="Action">
+		select * from actions where document != '' AND case_id=#{caseID} 
+	</select>
+    
+    <insert id="addAction" parameterType="Action" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('actions_id_seq')
+	  </selectKey>
+	  insert into actions (entry,filed_date,filed_by,document,case_id)
+	  values (#{entry}, #{filedDate}, #{filedBy}, #{document}, #{caseId})
+	</insert>
+</mapper>
