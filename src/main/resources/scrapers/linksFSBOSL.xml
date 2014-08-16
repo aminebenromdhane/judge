@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<data>
-<field typeValue="href">
-	<key>link</key>
-	<path>div#qresults>form>div>div[style=float:left;width:200px;]>a</path>
-</field>
-</data>

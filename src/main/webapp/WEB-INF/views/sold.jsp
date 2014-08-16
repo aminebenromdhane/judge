@@ -10,7 +10,6 @@
 </head>
 <body ng-controller="SoldController">
 <div>
-<button ng-click="scrap()" ng-disabled="isrun" >RUN THE PROGRAM</button><br/>
 <button ng-click="stop()" ng-disabled="!work || !isrun">STOP</button><br/>
 <button ng-click="start()" ng-disabled="work || !isrun">RESUME</button><br/>
 <div>

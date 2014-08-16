@@ -4,7 +4,7 @@ function SoldController($scope,$http) {
 	$scope.work = false;
 	$scope.remain = "";
 	
-	refreshAll = function(){
+	$scope.refreshAll = function(){
 		$http.get('/zd/sold/isrun').success(function(res){
 			$scope.isrun = (res == "true");
 		});
@@ -16,11 +16,8 @@ function SoldController($scope,$http) {
 		});
 	};
 
-	refresh = function(){
-		refreshAll();
-	};
-	$scope.scrap = function(){
-		$http.get('/zd/sold/scrap').success(function(res){});
+	$scope.refresh = function(){
+		$scope.refreshAll();
 	};
 	$scope.start = function(){
 		$http.get('/zd/sold/start').success(function(res){});
@@ -28,5 +25,5 @@ function SoldController($scope,$http) {
 	$scope.stop = function(){
 		$http.get('/zd/sold/stop').success(function(res){});
 	};
-	setInterval(refresh,500);
+	setInterval($scope.refresh,1000);
 }
