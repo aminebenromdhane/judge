@@ -10,7 +10,7 @@ public class Listing {
 	private int bed;
 	private int bath;
 	private int sqft;
-	private int lot;
+	private double lot;
 	private int yearBuilt;
 	
 	public int getId() {
@@ -55,10 +55,10 @@ public class Listing {
 	public void setSqft(int sqft) {
 		this.sqft = sqft;
 	}
-	public int getLot() {
+	public double getLot() {
 		return lot;
 	}
-	public void setLot(int lot) {
+	public void setLot(double lot) {
 		this.lot = lot;
 	}
 	public int getYearBuilt() {
@@ -67,9 +67,12 @@ public class Listing {
 	public void setYearBuilt(int yearBuilt) {
 		this.yearBuilt = yearBuilt;
 	}
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Listing [address=" + address + ", price=" + price
+				+ ", zestimate=" + zestimate + ", bed=" + bed + ", bath="
+				+ bath + ", sqft=" + sqft + ", lot=" + lot + ", yearBuilt="
+				+ yearBuilt + "]";
+	}
 	
 }

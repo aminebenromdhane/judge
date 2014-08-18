@@ -18,7 +18,6 @@ public class MultiPage extends ScraperDecorator{
 	
 	@Override
 	public void scrap() {
-		System.out.println("MultiPage Scrap");
 		String url = this.scraper.getUrlToScrap().getUrl();
 		int varOpenIndex = url.indexOf("{{");
 		int varCloseIndex = url.indexOf("}}");
@@ -41,7 +40,6 @@ public class MultiPage extends ScraperDecorator{
 
 	@Override
 	public Document readData(Document doc) {
-		System.out.println("MultiPage readData");
 		doc = this.scraper.readData(doc);
 		if(pageNumbers == -1){
 			setPageNumber(doc.select(pageNumbersPointer));
@@ -51,7 +49,7 @@ public class MultiPage extends ScraperDecorator{
 	
 	private void setPageNumber(Elements paginationElements){
 		try{
-			pageNumbers = Integer.parseInt(paginationElements.attr("value"));
+			pageNumbers = Integer.parseInt(paginationElements.text());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -61,7 +59,5 @@ public class MultiPage extends ScraperDecorator{
 	public void config() {
 		this.scraper.config();
 		this.pageNumbersPointer = this.scraper.getConfigFile().getRootElement().getChildText("pagenumber");
-	}
-
-	
+	}	
 }

@@ -1,31 +1,37 @@
 package com.orion.mm.data.filter;
 
-import java.util.Date;
-
 public class ListingFilter extends DataFilter{
 
 
-	public String number(String data){
+	public String address(String data){
 		return data.trim();
 	}
 	
-	public String type(String data){
-		return data.trim();
+	public int price(String data){
+		return super.priceFilter(data);
 	}
 	
-	public String category(String data){
-		return data.trim();
+	public int zestimate(String data){
+		return super.priceFilter(data);
 	}
 	
-	public String title(String data){
-		return data.trim();
+	public int bed(String data){
+		return super.intFilter(data);
 	}
 	
-	public Date filedDate(String data){
-		return super.dateFilter(data);
+	public int bath(String data){
+		return super.intFilter(data);
 	}
 	
-	public int sourceKey(String data){
+	public int sqft(String data){
+		return super.intFilter(data);
+	}
+	
+	public double lot(String data){
+		return super.doubleFilter(data);
+	}
+	
+	public int yearBuilt(String data){
 		return super.intFilter(data);
 	}
 }

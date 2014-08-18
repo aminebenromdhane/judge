@@ -31,7 +31,7 @@
 		
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
        <property name="driverClassName" value="org.postgresql.Driver" />  
-       <property name="url" value="jdbc:postgresql://localhost:5432/SCCaseDB" />  
+       <property name="url" value="jdbc:postgresql://54.186.185.22:5432/makeMeMove" />  
        <property name="username" value="postgres" />  
        <property name="password" value ="Mainou@96295751" /> 
     </bean> 
@@ -40,7 +40,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 	
-	<context:component-scan base-package="com.orion.judgesc" />
+	<context:component-scan base-package="com.orion.mm" />
 	
     <tx:annotation-driven/>
     
