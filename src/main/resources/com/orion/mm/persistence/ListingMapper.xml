@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.orion.mm.persistence.ListingMapper">
+	<resultMap type="com.orion.mm.domain.Listing" id="Listing">
+        <id column="id" property="id"  />
+        <result property="address" column="address"/>
+        <result property="price" column="price"/>
+        <result property="zestimate" column="zestimate"/>
+        <result property="bed" column="bed"/>
+        <result property="bath" column="bath"/>
+        <result property="sqft" column="sqft"/>
+        <result property="lot" column="lot"/>
+        <result property="yearBuilt" column="year_built"/>
+    </resultMap>
+    
+    <insert id="addListing" parameterType="Listing" useGeneratedKeys="true">
+	  <selectKey order="AFTER" keyProperty="id" resultType="int">
+	    SELECT currval('lsitings_id_seq')
+	  </selectKey>
+	  insert into listings (address, price, zestimate, bed, bath, sqft, lot, year_built)
+	  values (#{address}, #{price}, #{zestimate}, #{bed}, #{bath}, #{sqft}, #{lot}, #{yearBuilt})
+	</insert>
+</mapper>

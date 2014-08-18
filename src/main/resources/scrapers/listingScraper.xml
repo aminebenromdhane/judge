@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+<pagenumber>div#search-pagination-wrapper-2>ul>li:nth-last-child(2)>a</pagenumber>
+<object name="com.orion.mm.domain.Listing" filter="com.orion.mm.data.filter.ListingFilter">
+	<include>div#list-results>div#search-results>article</include>
+	<attribute>
+		<key>address</key>
+		<path>div.property-listing-data>div>dl.pier-1>dt.property-address>a</path>
+	</attribute>
+	<attribute>
+		<key>price</key>
+		<path>div.property-listing-data>div>dl.pier-2>dt.price-large>strong</path>
+	</attribute>
+	<attribute>
+		<key>zestimate</key>
+		<path>div.property-listing-data>div>dl.pier-2>div>div.zestimate</path>
+	</attribute>
+	<attribute>
+		<key>bed</key>
+		<path>div.property-listing-data>div>dl:contains(Beds)>dd</path>
+	</attribute>
+	<attribute>
+		<key>bath</key>
+		<path>div.property-listing-data>div>dl:contains(Baths)>dd</path>
+	</attribute>
+	<attribute>
+		<key>sqft</key>
+		<path>div.property-listing-data>div>dl:contains(Sqft)>dd</path>
+	</attribute>
+	<attribute>
+		<key>lot</key>
+		<path>div.property-listing-data>div>dl:contains(Lot)>dd</path>
+	</attribute>
+	<attribute>
+		<key>yearBuilt</key>
+		<path>div.property-listing-data>div>dl:contains(Built)>dd</path>
+	</attribute>
+</object>
+</data>
