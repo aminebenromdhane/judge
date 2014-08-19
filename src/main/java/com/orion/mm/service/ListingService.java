@@ -14,7 +14,7 @@ public class ListingService {
 	@Autowired
 	private ListingMapper mapper;
 	
-	public void addCase(Listing listing){
-		mapper.addCase(listing);
+	public void addListing(Listing listing){
+		mapper.addListing(listing);
 	}
 }

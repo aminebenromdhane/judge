@@ -4,6 +4,6 @@ import com.orion.mm.domain.Listing;
 
 public interface ListingMapper {
 		
-	public void addCase(Listing listing);
+	public void addListing(Listing listing);
 	
 }
