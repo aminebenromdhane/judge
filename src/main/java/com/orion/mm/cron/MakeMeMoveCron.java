@@ -16,10 +16,11 @@ public class MakeMeMoveCron {
 	@Autowired
 	private ListingService caseService;
 	
-	@Scheduled(fixedDelay=60000)
+	@Scheduled(fixedDelay=600000)
 	private void mmScraper(){
 		MakeMeMoveScraperImplement mmImpl = new MakeMeMoveScraperImplement(caseService);
 		mmImpl.scrap();
+		System.out.println("finish");
 	}
 	
 }

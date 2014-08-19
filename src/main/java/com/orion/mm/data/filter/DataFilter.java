@@ -11,6 +11,18 @@ public abstract class DataFilter {
 		}
 		return 0;
 	}
+	protected int specialPriceFilter(String data){
+		if(!data.equals("") && data != null){
+			int mul = 1;
+			if(data.contains("K")){
+				mul *= 1000;
+			}else if(data.contains("M")){
+				mul *= 1000*1000;
+			}
+			return mul * priceFilter(data);
+		}
+		return 0;
+	}
 	protected Date dateFilter(String data){
 		try{
 			SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy");

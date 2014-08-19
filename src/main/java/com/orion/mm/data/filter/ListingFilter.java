@@ -12,22 +12,25 @@ public class ListingFilter extends DataFilter{
 	}
 	
 	public int zestimate(String data){
-		return super.priceFilter(data);
+		data = data.replace("Zestimate®: ", "");
+		return super.specialPriceFilter(data);
 	}
 	
 	public int bed(String data){
 		return super.intFilter(data);
 	}
 	
-	public int bath(String data){
-		return super.intFilter(data);
+	public double bath(String data){
+		return super.doubleFilter(data);
 	}
 	
 	public int sqft(String data){
+		data = data.replace(",", "");
 		return super.intFilter(data);
 	}
 	
 	public double lot(String data){
+		data = data.replace("ac","").replace(",", "").trim();
 		return super.doubleFilter(data);
 	}
 	

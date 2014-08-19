@@ -6,4 +6,6 @@ public interface ListingMapper {
 		
 	public void addListing(Listing listing);
 	
+	public Listing getListing(Listing listing);
+	
 }

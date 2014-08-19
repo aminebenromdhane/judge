@@ -6,7 +6,7 @@ import org.jsoup.select.Elements;
 import com.orion.mm.scraper.component.Scraper;
 
 public class MultiPage extends ScraperDecorator{
-
+	//page Number or total/per page
 	private int pageNumbers;
 	private String pageNumbersPointer;
 	
@@ -48,7 +48,7 @@ public class MultiPage extends ScraperDecorator{
 	
 	private void setPageNumber(Elements paginationElements){
 		try{
-			pageNumbers = Integer.parseInt(paginationElements.text());
+			pageNumbers = 34;//Integer.parseInt(paginationElements.text());
 		}catch(Exception e){
 			e.printStackTrace();
 		}

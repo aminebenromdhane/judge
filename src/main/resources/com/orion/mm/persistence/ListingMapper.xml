@@ -14,9 +14,13 @@
         <result property="yearBuilt" column="year_built"/>
     </resultMap>
     
+	<select id="getListing" parameterType="map" resultMap="Listing">
+    	select * from listings where address=#{address}
+    </select>
+	
     <insert id="addListing" parameterType="Listing" useGeneratedKeys="true">
 	  <selectKey order="AFTER" keyProperty="id" resultType="int">
-	    SELECT currval('lsitings_id_seq')
+	    SELECT currval('listings_id_seq')
 	  </selectKey>
 	  insert into listings (address, price, zestimate, bed, bath, sqft, lot, year_built)
 	  values (#{address}, #{price}, #{zestimate}, #{bed}, #{bath}, #{sqft}, #{lot}, #{yearBuilt})

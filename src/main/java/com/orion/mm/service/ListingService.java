@@ -17,4 +17,8 @@ public class ListingService {
 	public void addListing(Listing listing){
 		mapper.addListing(listing);
 	}
+	
+	public boolean exist(Listing listing){
+		return mapper.getListing(listing) != null;
+	}
 }

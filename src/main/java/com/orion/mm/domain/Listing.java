@@ -8,7 +8,7 @@ public class Listing {
 	private int price;
 	private int zestimate;
 	private int bed;
-	private int bath;
+	private double bath;
 	private int sqft;
 	private double lot;
 	private int yearBuilt;
@@ -43,10 +43,10 @@ public class Listing {
 	public void setBed(int bed) {
 		this.bed = bed;
 	}
-	public int getBath() {
+	public double getBath() {
 		return bath;
 	}
-	public void setBath(int bath) {
+	public void setBath(double bath) {
 		this.bath = bath;
 	}
 	public int getSqft() {
