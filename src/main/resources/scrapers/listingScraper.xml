@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
+<connexion method="post">
+	<url>https://www.zillow.com/user/account/services/Login.htm</url>
+	<username var="email">amineorion@gmail.com</username>
+	<password var="password">amine96295751</password>
+</connexion>
 <pagenumber>div#search-pagination-wrapper-2>ul>li:nth-last-child(2)>a</pagenumber>
 <object name="com.orion.mm.domain.Listing" filter="com.orion.mm.data.filter.ListingFilter">
 	<include>div#list-results>div#search-results>article</include>
 	<attribute>
 		<key>address</key>
-		<path>div.property-listing-data>div>dl.pier-1>dt.property-address>a</path>
+		<path>div.property-listing-data>div>dl.pier-1>dt.property-address</path>
 	</attribute>
 	<attribute>
 		<key>price</key>

@@ -18,6 +18,7 @@ public class MakeMeMoveCron {
 	
 	@Scheduled(fixedDelay=60000)
 	private void mmScraper(){
+		System.out.println("begin");
 		MakeMeMoveScraperImplement mmImpl = new MakeMeMoveScraperImplement(caseService);
 		mmImpl.scrap();
 	}

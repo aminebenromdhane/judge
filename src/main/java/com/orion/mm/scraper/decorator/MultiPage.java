@@ -13,7 +13,6 @@ public class MultiPage extends ScraperDecorator{
 	public MultiPage(Scraper scraper) {
 		super(scraper);
 		pageNumbers = -1;
-		
 	}
 	
 	@Override
